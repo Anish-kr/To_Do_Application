@@ -13,24 +13,62 @@
             <p><a class="btn btn-outline-success" href="/">
                 <i class="bi bi-arrow-left-square-fill"></i> Back</a>
             </p>
+
         </div>
+
         <div class="col-6">
-            <h2>Add a new Todo Item</h2>
+            <h2>Submit a new Expense</h2>
             <form action="#" th:action="@{/todo}" th:object="${todoItem}" method="POST">
                 <div class="form-group">
-                    <label for="description">Description</label>
+                    <label for="description">Amount*</label>
                     <input class="form-control"
                            type="text"
                            th:field="*{description}"
                            id="description"
-                           placeholder="Description"
+                           placeholder="Amount must be in digits"
                     >
 
-                    <button type="submit" class="btn btn-outline-success">
-                        <i class="bi bi-plus-square-fill"></i> Add Todo
-                    </button>
+
 
                 </div>
+
+                <div class="form-group">
+                    <label for="claimType">Claim Type*</label>
+                    <input class="form-control"
+                           type="text"
+                           th:field="*{claimType}"
+                           id="claimType"
+                           placeholder="Enter the claim type">
+                </div>
+
+
+                <div class="form-group">
+                    <label for="claimMonth">Claim Month*</label>
+                    <input class="form-control"
+                           type="number"
+                           th:field="*{claimMonth}"
+                           id="claimMonth"
+                           placeholder="Enter the claim month (1-12)"
+                           min="1" max="12">
+                </div>
+
+
+        <div class="form-group">
+            <label for="claimYear">Claim Year</label>
+            <input class="form-control"
+                   type="number"
+                   th:field="*{claimYear}"
+                   id="claimYear"
+                   placeholder="Enter the claim Year"
+                   min="1900" max="2023">
+        </div>
+                <div th:if="${not #strings.isEmpty(error)}">
+                    <p class="alert alert-danger" th:text="${error}"></p>
+                </div>
+
+                <button type="submit" class="btn btn-outline-success">
+                    <i class="bi bi-plus-square-fill"></i> Save Expense
+                </button>
             </form>
         </div>
     </div>

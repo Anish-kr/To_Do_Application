@@ -26,7 +26,9 @@ public class TodoItemService {
         if (todoItem.getId() == null) {
             todoItem.setCreatedAt(Instant.now());
         }
-        todoItem.setUpdatedAt(Instant.now());
+        if(todoItem.getIsComplete() !=null && todoItem.getApprovedAmount()!=null) {
+            todoItem.setUpdatedAt(Instant.now());
+        }
         return todoItemRepository.save(todoItem);
     }
 

@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Spring Boot 3.0.0 Todo Application</h1>
+    <h1>Expense Management Application</h1>
     <hr />
 
     <table class="table table-bordered table-striped">
@@ -16,36 +16,50 @@
         <tr>
             <th>Actions</th>
             <th>Id</th>
-            <th>Description</th>
-            <th>Is Complete</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Month Of Reimbursement</th>
+            <th>Date Of Claim</th>
+            <th>Claimed Amount</th>
+            <th>Approved Amount</th>
+<!--            <th>Paid Amount</th>-->
+            <th>Payment Date</th>
+            <th>Status</th>
+            <th>Claim Type</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="item : ${todoItems}" th:class="${item.isComplete} ? 'alert alert-success' : 'alert alert-warning'">
             <td>
                 <div class="btn btn-group-sm" role="group">
-                    <a class="btn btn-info" th:href="@{/edit/{id}(id=${item.id})}">
-                        <i class="bi bi-pencil-fill"></i> Edit</a>
+                    <a class="btn btn-success" th:href="@{/edit/{id}(id=${item.id})}">
+                        <i class="bi bi-pencil-fill"></i> Pay</a>
                     <a class="btn btn-danger" th:href="@{/delete/{id}(id=${item.id})}">
                         <i class="bi bi-trash-fill"></i> Delete</a>
+
                 </div>
             </td>
             <td th:text="${item.id}"></td>
-            <td th:text="${item.description}"></td>
             <td>
-                <span th:if="${item.isComplete} == true" th:text="Yes" />
-                <span th:unless="${item.isComplete} == true" th:text="No" />
+                <span th:each="month : ${T(java.time.Month).values()}"
+                th:text="${item.getClaimMonthAsObject().equals(month) ? month.getDisplayName(T(java.time.format.TextStyle).FULL, T(java.util.Locale).ENGLISH) : ''}" />
             </td>
-            <td th:text="${item.createdAt}"></td>
-            <td th:text="${item.updatedAt}"></td>
+            <td th:text="${#temporals.format(item.createdAt, 'dd/MM/yy')}"></td>
+            <td th:text="${item.description}"></td>
+            <td th:text="${item.approvedAmount}"></td>
+            <td th:text="${#temporals.format(item.updatedAt, 'dd/MM/yy')}"></td>
+            <td>
+                <span th:if="${item.isComplete} == true" th:text="Paid" />
+                <span th:unless="${item.isComplete} == true" th:text="Unpaid" />
+            </td>
+
+
+            <td th:text="${item.claimType}"></td>
+
         </tr>
         </tbody>
     </table>
 
     <p><a class="btn btn-outline-success" href="/create-todo">
-        <i class="bi bi-plus-square-fill"></i> Create a Todo</a>
+        <i class="bi bi-plus-square-fill"></i> Submit an Expense</a>
     </p>
 </div>
 <script th:src="@{/webjars/bootstrap/5.2.2/js/bootstrap.min.js}"></script>

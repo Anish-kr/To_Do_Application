@@ -15,17 +15,20 @@
             </p>
         </div>
         <div class="col-6">
-            <h2>Edit Todo Item</h2>
+            <h2>Approve Amount</h2>
             <form class="row g-3" action="#" th:action="@{/todo/{id}(id=${todo.id})}" th:object="${todo}" method="POST">
                 <div class="form-group">
                     <div class="col-6">
-                        <label for="description">Description</label>
+                        <label for="approvedAmount">Amount</label>
                         <input class="form-control"
                                type="text"
-                               th:field="*{description}"
-                               id="description"
-                               placeholder="Description"
+                               th:field="*{approvedAmount}"
+                               id="approvedAmount"
+                               placeholder="Amount"
                         >
+                    </div>
+                    <div th:if="${error}" class="text-danger">
+                        <span th:text="${error}"></span>
                     </div>
                     <div class="col-6 form-check">
                         <input class="form-check-input"
@@ -34,16 +37,20 @@
                                th:field="*{isComplete}"
                                th:checked="${isComplete} == true">
                         <label class="form-check-label" for="inputIsComplete">
-                            Completed?
+                            Pay?
                         </label>
                     </div>
 
-                    <input type="hidden" th:field="*{createdAt}" />
-                    <input type="hidden" th:field="*{updatedAt}" />
+<!--                    <input type="hidden" th:field="*{createdAt}" />-->
+<!--                    <input type="hidden" th:field="*{updatedAt}" />-->
+
 
                     <button type="submit" class="btn btn-outline-success">
-                        <i class="bi bi-plus-square-fill"></i> Update
+                        <i class="bi bi-plus-square-fill"></i> Pay
                     </button>
+
+
+
 
                 </div>
             </form>
